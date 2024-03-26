@@ -317,7 +317,7 @@ create or replace package body PCK_CTL as
 
     r.lvl        := 1     ;
     r.lbl        := 'Home';
-    r.lnk        := '#'   ;
+    r.lnk        := apex_util.prepare_url( 'f?p=APP-CTL:HOME:'||v('SESSION') ) ;
     r.ico        := 'fa-home';
     r.id_        := ''       ;
     r.id_pai     := ''    ;
@@ -371,6 +371,8 @@ create or replace package body PCK_CTL as
   function criptografar(p_password varchar2) return varchar2 is
   begin
     return -- rawtohex(sys.dbms_crypto.hash(sys.utl_raw.cast_to_raw(p_password), sys.dbms_crypto.hash_sh512));
+           -- ou 
+           -- DBMS_OBFUSCATION_TOOLKIT.MD5(input_string => p_password );
            p_password ;
 
   end criptografar;
@@ -456,11 +458,11 @@ create or replace package body PCK_CTL as
 
     if v_user = 'nobody' then
       return false;
-        apex_util.redirect_url( p_url => apex_page.get_url(p_application  => 'app-ctl',
-                                                           p_page         => '9999',
+/*        apex_util.redirect_url( p_url => apex_page.get_url(p_application  => 'app-ctl',
+                                                           p_page         => 'error',
                                                            p_session      => v('APP_SESSION') ) );
         apex_application.stop_apex_engine;
-
+*/
     end if;
 
     /*if not tem_acesso(p_usuario   => v_user
@@ -681,8 +683,8 @@ insert into CTL_PAGINA (id_pagina, ds_pagina, id_grupo_pagina, id_apex_app, id_a
 values (4, 'Páginas', 1, 'APP-CTL', '10', '10,11', 1);
 insert into CTL_PAGINA (id_pagina, ds_pagina, id_grupo_pagina, id_apex_app, id_apex_page, lst_page_clear_cache, id_aplicacao)
 values (5, 'Usuários', 1, 'APP-CTL', '12', '12,13', 1);
-insert into CTL_PAGINA (id_pagina, ds_pagina, id_grupo_pagina, id_apex_app, id_apex_page, lst_page_clear_cache, id_aplicacao)
-values (6, 'Usuários', 1, 'APP-CTL', '12', '12,13', 1);
+/*insert into CTL_PAGINA (id_pagina, ds_pagina, id_grupo_pagina, id_apex_app, id_apex_page, lst_page_clear_cache, id_aplicacao)
+values (6, 'Usuários', 1, 'APP-CTL', '12', '12,13', 1);*/
 insert into CTL_PAGINA (id_pagina, ds_pagina, id_grupo_pagina, id_apex_app, id_apex_page, lst_page_clear_cache, id_aplicacao)
 values (7, 'Log do Controle de Acesso', 2, 'APP-CTL', '8', '8', 1);
 insert into CTL_PAGINA (id_pagina, ds_pagina, id_grupo_pagina, id_apex_app, id_apex_page, lst_page_clear_cache, id_aplicacao)
@@ -707,8 +709,8 @@ insert into CTL_PERFIL (id_perfil, ds_perfil, id_empresa, id_usuario, id_pagina,
 values (4, '4', 1, 1, 4, 'SIM', 'SIM');
 insert into CTL_PERFIL (id_perfil, ds_perfil, id_empresa, id_usuario, id_pagina, lc_show_in_menu, lc_ativo)
 values (5, '5', 1, 1, 5, 'SIM', 'SIM');
-insert into CTL_PERFIL (id_perfil, ds_perfil, id_empresa, id_usuario, id_pagina, lc_show_in_menu, lc_ativo)
-values (6, '6', 1, 1, 6, 'SIM', 'SIM');
+/*insert into CTL_PERFIL (id_perfil, ds_perfil, id_empresa, id_usuario, id_pagina, lc_show_in_menu, lc_ativo)
+values (6, '6', 1, 1, 6, 'SIM', 'SIM');*/
 insert into CTL_PERFIL (id_perfil, ds_perfil, id_empresa, id_usuario, id_pagina, lc_show_in_menu, lc_ativo)
 values (7, '7', 1, 1, 7, 'SIM', 'SIM');
 insert into CTL_PERFIL (id_perfil, ds_perfil, id_empresa, id_usuario, id_pagina, lc_show_in_menu, lc_ativo)
